@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using DataModelEntities;
 using Microsoft.AspNetCore.Http;
 
-namespace DomainService.IMappers
+namespace DomainService.Interfaces
 {
     public interface IFileProcess
     {

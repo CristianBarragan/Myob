@@ -4,7 +4,7 @@ using System.Text;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 
-namespace DomainService.IServices
+namespace DomainService.Interfaces
 {
     public interface IFileService
     {

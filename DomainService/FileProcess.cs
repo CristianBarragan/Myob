@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using DataModelEntities;
-using DomainModel;
-using DomainService.IMappers;
-using DomainSqlServer;
+using DomainService.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;
 using Storage;

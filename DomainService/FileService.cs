@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using DomainModel;
-using DomainService.IMappers;
-using DomainService.IServices;
-using DomainService.Mappers;
+using DomainService.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;
 
