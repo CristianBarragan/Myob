@@ -7,7 +7,7 @@ Instructions
 1. Clone or download repository
 2. Open project in visual studio 2017
 3. Run
-4. Select CSV file(s) and click upload files
+4. Select CSV file(s) and click upload files (Assumption csv files does not have headers as a first line)
 5. Output result showed
 6. If you have any problem or further questions, please contact me by email or mobile phone
 
