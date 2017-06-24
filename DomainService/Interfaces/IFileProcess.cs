@@ -5,7 +5,7 @@ namespace DomainService.Interfaces
 {
     public interface IFileProcess
     {
-        string Validate(IFormFile file);
+        bool Validate(IFormFile file, out string line);
         IEnumerable<string> Generate(IFormFile file);
     }
 }

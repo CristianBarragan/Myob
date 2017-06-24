@@ -54,27 +54,44 @@ namespace DomainService.Mappers
             return line;
         }
 
-        public string Validate(IFormFile file)
+        public bool Validate(IFormFile file, out string line)
         {
-            string line = null;
             int lineCount = 1;
+            bool valid = true;
+            line = "";
             using (var reader = new StreamReader(file.OpenReadStream()))
             {
-                var data = reader.ReadLine().Split(',');
-                if(data.Length != 5)
-                    return "Line [" + lineCount + "] has an incorrect number of columns";
-                long salary;
-                bool res = long.TryParse(data[2], out salary);
-                if (!res)
-                    return "Line [" + lineCount + "] is not a number";
-                if (salary < 0)
-                    return "Line [" + lineCount + "] has a negative salary";
-                var percentage = data[3].Split('%');
-                if (percentage.Length > 2 || !string.IsNullOrEmpty(percentage[1]))
-                    return "Line [" + lineCount + "] super rate is not a percentage";
-                lineCount++;
+                while (!reader.EndOfStream)
+                {
+                    line = "";
+                    var data = reader.ReadLine().Split(',');
+                    if (data.Length != 5)
+                    {
+                        line = "Line [" + lineCount + "] has an incorrect number of columns";
+                        return false;
+                    }
+                    long salary;
+                    bool res = long.TryParse(data[2], out salary);
+                    if (!res)
+                    {
+                        line = "Line [" + lineCount + "] is not a number";
+                        return false;
+                    }
+                    if (salary < 0)
+                    {
+                        line = "Line [" + lineCount + "] has a negative salary";
+                        return false;
+                    }
+                    var percentage = data[3].Split('%');
+                    if (percentage.Length > 2 || !string.IsNullOrEmpty(percentage[1]))
+                    {
+                        line = "Line [" + lineCount + "] super rate is not a percentage";
+                        return false;
+                    }
+                    lineCount++;
+                }
+                return valid;
             }
-            return line;
         }
     }
 }

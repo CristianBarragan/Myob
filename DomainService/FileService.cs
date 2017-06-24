@@ -20,15 +20,14 @@ namespace DomainService.Services
         public IEnumerable<string> process(IFormFileCollection files)
         {
             List<string> result = new List<string>();
-            string validation = null;
+            string line = "";
             foreach (var file in files)
             {
                 result.Add(file.FileName);
-                validation = FileMapper.Validate(file);
-                if (validation == null)
+                if (FileMapper.Validate(file, out line))
                     result.AddRange(FileMapper.Generate(file));
                 else
-                    result.Add(validation);
+                    result.Add(line);
             }
             return result;
         }
