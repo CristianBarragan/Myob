@@ -1,0 +1,55 @@
+﻿@model List<string>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<form method="post" enctype="multipart/form-data">
+    <input type="file" id="files"
+           name="file" accept=".csv" multiple="multiple"/>
+
+    <input type="button"
+           id="upload"
+           value="Upload Selected Files" />
+    <input type="button"
+           id="clear"
+           value="Clear table" />
+    <table class="table table-bordered" id="Table">
+    </table>
+
+</form>
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#clear").click(function () {
+                $("#Table > tr").slice(0).remove();
+            });
+            $("#upload").click(function (evt) {
+                var fileUpload = $("#files").get(0);
+                var files = fileUpload.files;
+                var data = new FormData();
+                for (var i = 0; i < files.length ; i++) {
+                    data.append(files[i].name, files[i]);
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "/home/UploadFile",
+                    contentType: false,
+                    processData: false,
+                    data: data,
+                    success: function (data) {
+                        $.each(data, function (i, item) {
+                            var rows = "<tr>" +
+                                "<td id='row'>" + item + "</td>"
+                               "</tr>";
+                            $('#Table').append(rows);
+                        });
+                    },
+                    error: function () {
+                        alert("There was error uploading files!");
+                    }
+                });
+            });
+        });
+    </script>
+}
