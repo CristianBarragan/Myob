@@ -45,7 +45,7 @@ namespace DomainService.Mappers
             long grossIncome = (long)Math.Round((decimal.Parse(data[2]) / 12), MidpointRounding.AwayFromZero);
             line = line + "," + grossIncome.ToString();
             long salary = long.Parse(data[2]);
-            tax = taxes.Find(t => t.bottomRange < salary && t.upperRange > salary);
+            tax = taxes.Find(t => t.bottomRange < salary && t.upperRange >= salary);
             long incomeTax = (long)Math.Round(((decimal)tax.BaseTax + ((salary - (tax.bottomRange - 1))*tax.variableTax)) / 12, MidpointRounding.AwayFromZero);
             line = line + "," + incomeTax.ToString();
             line = line + "," + (grossIncome - incomeTax).ToString();
